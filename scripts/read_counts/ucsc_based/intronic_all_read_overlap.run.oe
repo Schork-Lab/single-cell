@@ -1,0 +1,12 @@
+<startTime>Thu Nov 20 13:06:20 PST 2014</startTime>
+<output>
+</output>
+<exitStatus>0</exitStatus>
+<stopTime>Thu Nov 20 15:40:10 PST 2014</stopTime>
+Job Id: 2182317.tscc-mgr.local
+    Job_Name = intronic_all_read_overlap
+    Job_Owner = kbhutani@tscc-login2.local
+    Resource_List.nodect = 1
+    Resource_List.nodes = 1:ppn=1
+    Resource_List.walltime = 48:00:00
+Nodes:        tscc-0-35

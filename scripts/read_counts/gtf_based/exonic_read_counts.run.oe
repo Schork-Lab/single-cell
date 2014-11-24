@@ -1,0 +1,12 @@
+<startTime>Fri Nov 21 09:46:18 PST 2014</startTime>
+<output>
+</output>
+<exitStatus>0</exitStatus>
+<stopTime>Fri Nov 21 10:27:59 PST 2014</stopTime>
+Job Id: 2183077.tscc-mgr.local
+    Job_Name = exonic_read_counts
+    Job_Owner = kbhutani@tscc-0-63
+    Resource_List.nodect = 1
+    Resource_List.nodes = 1:ppn=1
+    Resource_List.walltime = 06:00:00
+Nodes:        tscc-0-63
