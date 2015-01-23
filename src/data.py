@@ -1,6 +1,7 @@
 import os
 
 import pandas as pd
+from numpy import sum
 
 from helpers import *
 
@@ -81,7 +82,9 @@ def read_sample(filename, sample_name=None):
     return df[[sample_name]]
 
 def filter_df(tpm_df, genes_only=True,
-                         neuronal=True, non_neuronal=True, pooled=True):
+                            expressed_in_multiple=False,
+                            relevant_genes=False,
+                            neuronal=True, non_neuronal=True, pooled=True):
     '''
     
     :param tpm_df:
@@ -100,20 +103,28 @@ def filter_df(tpm_df, genes_only=True,
         tpm_df = tpm_df.ix[[index for index in tpm_df.index
                                                      if index.find('ENSG') != -1]]
 
+    if expressed_in_multiple:
+        tpm_df = tpm_df[sum(tpm_df > 0, axis=1) > 1]
+
+    if relevant_genes:
+        relevant_genes = os.path.join(local_data, 'relevant_genes.csv')
+        relevant_genes = pd.read_table(relevant_genes,)
+        tpm_df = tpm_df.ix[relevant_genes['gene_id']]
+
     columns = []
     if neuronal:
         columns += [column for column in tpm_df.columns
-                                     if column.find('Neuronal nuclei') != -1]
+                                     if column.find('Neuronal nucleus') != -1]
     if non_neuronal:
         columns += [column for column in tpm_df.columns
-                                     if column.find('Non-neuronal nuclei') != -1]
+                                     if column.find('Non-neuronal nucleus') != -1]
     if pooled:
         columns += [column for column in tpm_df.columns
                                      if column.find('Total RNA') != -1]
 
     return tpm_df[columns].sort(axis=1)
 
-def get_low_mid_high_genes(control_tpm, cutoffs=(0.33, 0.66)):
+def get_low_mid_high_genes(control_tpm, cutoffs=(0.3333333, 0.6666667)):
     '''
     
     :param control_tpm:
